@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Deploy to EC2
+      - name: Deploy to EC2 and restart Gunicorn
         uses: appleboy/ssh-action@master
         with:
           host: 3.110.106.107
@@ -22,4 +22,10 @@ jobs:
           script: |
             cd /home/ubuntu/my-app
             git pull origin main
-            echo "✅ Deployment completed!"
+            source venv/bin/activate
+            pip install -r requirements.txt
+            python manage.py migrate --noinput
+            python manage.py collectstatic --noinput
+            sudo systemctl restart gunicorn
+            echo "✅ Django app deployed and Gunicorn restarted!"
+
