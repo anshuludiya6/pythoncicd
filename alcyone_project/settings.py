@@ -34,7 +34,7 @@ DEBUG = os.getenv('DEBUG') == 'True'
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.67", "192.168.1.250","122.168.125.73", "localhost"]
+ALLOWED_HOSTS = ["*"]
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
